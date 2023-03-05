@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { ElMessage, type FormInstance, type FormRules } from "element-plus";
-import { useUsersStore } from "../../stores/users";
+import { useUsersStore } from "@/stores/users";
 import { useRouter } from "vue-router";
 import type { IUser } from "@/stores/typeCheck";
 const userstore = useUsersStore();

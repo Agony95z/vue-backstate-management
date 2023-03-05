@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import _ from 'lodash';
-import { useUsersStore } from '../stores/users';
+import { useUsersStore } from '@/stores/users';
 const Login = () => import('@/views/Login/Login.vue');
 const Home = () => import('@/views/Home/Home.vue');
 const Sign = () => import('@/views/Sign/Sign.vue');
@@ -91,7 +90,7 @@ router.beforeEach(async (to, from, next) => {
   const token = userStore.token;
   const infos = userStore.infos; // 判断用户信息
   // 需要登录权限
-  if (to.meta.auth && _.isEmpty(infos)) {
+  if (to.meta.auth && Object.keys(infos).length) {
     // 有token 获取infos
     if (token) {
       const ret = await userStore.getInfos(); // 如果返回失败 去响应拦截器做统一拦截处理
@@ -108,7 +107,7 @@ router.beforeEach(async (to, from, next) => {
       // 重定向到首页
       next('/');
     } else {
-      next();
+      next()
     }
   }
 })

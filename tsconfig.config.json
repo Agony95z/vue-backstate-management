@@ -3,6 +3,8 @@
   "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
   "compilerOptions": {
     "composite": true,
-    "types": ["node"]
+    "types": ["node"],
+    "module": "CommonJS", // 生成代码的模板标准
+    "moduleResolution": "node", // 模块解析策略，ts默认用node的解析策略，即相对的方式导入
   }
 }
