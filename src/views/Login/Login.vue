@@ -68,10 +68,10 @@ import { reactive, ref } from "vue";
 import { ElMessage, type FormInstance, type FormRules } from "element-plus";
 import { useUsersStore } from "../../stores/users";
 import { useRouter } from "vue-router";
-import type { User } from "@/stores/typeCheck";
+import type { IUser } from "@/stores/typeCheck";
 const userstore = useUsersStore();
 const router = useRouter();
-const testUsers: User[] = [
+const testUsers: IUser[] = [
   {
     email: "huangrong@imooc.com",
     pass: "huangrong",
@@ -93,7 +93,7 @@ const emailValidatePass = (rule: any, value: any, callback: any) => {
     callback();
   }
 };
-const ruleForm = reactive<User>({
+const ruleForm = reactive<IUser>({
   pass: "",
   email: "",
 });
@@ -131,7 +131,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
 };
-const autoLogin = (user: User) => {
+const autoLogin = (user: IUser) => {
   ruleForm.email = user.email;
   ruleForm.pass = user.pass;
   submitForm(ruleFormRef.value);

@@ -7,7 +7,7 @@ import { defineStore } from "pinia";
  *          参数2：选项对象 
  * @return {*}
  */
-export const useUsersStore = defineStore('users', {
+export const useUsersStore = defineStore('signs', {
   // 必须是箭头函数 更好的ts类型推导
   state: () => {
     return {

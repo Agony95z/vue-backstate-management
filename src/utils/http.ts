@@ -1,4 +1,7 @@
 import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
+import { useUsersStore } from '@/stores/users';
+import { ElMessage } from 'element-plus';
+let userStore: any = null;
 const instance = axios.create({
   baseURL: 'http://api.h5ke.top/',
   timeout: 5000,
@@ -7,6 +10,12 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
+  if (userStore === null) {
+    userStore = useUsersStore();
+  }
+  if (config.headers) {
+    config.headers.authorization = userStore.token;
+  }
   return config;
 }, function (error) {
   return Promise.reject(error);
@@ -14,6 +23,13 @@ instance.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
+  if (response.data.errmsg === 'token error') {
+    ElMessage.error('token error');
+    userStore.clearToken();
+    setTimeout(() => {
+      window.location.replace('/login');
+    }, 1000);
+  }
   return response;
 }, function (error) {
   return Promise.reject(error);

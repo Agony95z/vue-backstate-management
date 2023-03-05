@@ -8,12 +8,13 @@ import { login } from "@/api/users";
  *          参数2：选项对象
  * @return {*}
  */
-import type { User } from "@/stores/typeCheck";
+import type { IUser, IUserState } from "@/stores/typeCheck";
 export const useUsersStore = defineStore("users", {
   // 必须是箭头函数 更好的ts类型推导
-  state: () => {
+  state: (): IUserState => {
     return {
-      token: ''
+      token: '',
+      infos: {}
       // count: 100,
       // foo: "bar",
       // arr: [1, 2, 3] as any,
@@ -49,7 +50,16 @@ export const useUsersStore = defineStore("users", {
     updateToken(token: string) {
       this.token = token;
     },
-    login(payload: User) {
+    clearToken() {
+      this.token = '';
+    },
+    updateInfos(infos: any) {
+      this.infos = infos;
+    },
+    getInfos() {
+      return http.get("/users/infos");
+    },
+    login(payload: IUser) {
       // const ret = await login()
       const ret = http.post("/users/login", payload);
       return ret;
