@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <!-- <el-container>
     <el-header>
       <home-header></home-header>
     </el-header>
@@ -12,7 +12,8 @@
         <home-main></home-main>
       </el-main>
     </el-container>
-  </el-container>
+  </el-container> -->
+  <div>123213213</div>
 </template>
 
 <script setup lang="ts">

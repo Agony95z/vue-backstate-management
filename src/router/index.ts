@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useUsersStore } from '@/stores/users';
-// import Home from '@/views/Home/Home.vue';
 import http from '@/utils/http';
 const Login = () => import('@/views/Login/Login.vue');
 const Home = () => import('@/views/Home/Home.vue');
@@ -22,9 +21,12 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      redirect: '/home',
+    },
+    {
+      path: '/home',
       name: 'home',
       component: Home,
-      redirect: '/sign',
       meta: {
         menu: true,
         title: '考勤管理',

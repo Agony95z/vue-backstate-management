@@ -25,6 +25,9 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
   if (response.data.errmsg === 'token error') {
     ElMessage.error('token error');
+    if (userStore === null) {
+      userStore = useUsersStore();
+    }
     userStore.clearToken();
     setTimeout(() => {
       window.location.replace('/login');
