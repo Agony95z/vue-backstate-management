@@ -5,7 +5,7 @@
       <i class="iconfont icon-test"></i>
       <i class="iconfont icon-typescript"></i>
     </span>
-    <span class="header-title">在线考勤系统</span>
+    <span class="home-header-title">在线考勤系统</span>
 
     <el-dropdown>
       <el-badge>
@@ -53,17 +53,18 @@ const handleLogout = () => {
   align-items: center;
   height: 100%;
   .home-header-logo {
-    .icon-vue,
+    .icon-Vue,
     .icon-icon-test,
     .icon-typescript {
       margin-right: 5px;
       font-size: inherit;
     }
-    .icon-vue {
+    .icon-Vue {
       color: green;
     }
-    .icon-icon-test {
+    .icon-test {
       color: #deb887;
+      font-size: 22px;
     }
     .icon-typescript {
       color: blue;

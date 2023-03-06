@@ -115,7 +115,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
         // success
         userstore.updateToken(res.data.token);
         ElMessage.success("登陆成功");
-        router.push("/");
+        router.push({path:'/'});
       } else {
         // fail
         ElMessage.error("登陆失败");

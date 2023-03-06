@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useUsersStore } from '@/stores/users';
+// import Home from '@/views/Home/Home.vue';
+import http from '@/utils/http';
 const Login = () => import('@/views/Login/Login.vue');
 const Home = () => import('@/views/Home/Home.vue');
 const Sign = () => import('@/views/Sign/Sign.vue');
@@ -83,21 +85,23 @@ const router = createRouter({
     }
   ]
 })
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
   if (userStore === null) {
     userStore = useUsersStore();
   }
   const token = userStore.token;
   const infos = userStore.infos; // 判断用户信息
   // 需要登录权限
-  if (to.meta.auth && Object.keys(infos).length) {
+  // 有token 获取infos
+  if (to.meta.auth && Object.keys(infos).length === 0) {
     // 有token 获取infos
     if (token) {
-      const ret = await userStore.getInfos(); // 如果返回失败 去响应拦截器做统一拦截处理
-      if (ret.data.errorcode === 0) { // 成功
-        userStore.updateInfos(ret.data.infos);
-        next();
-      }
+      http.get("/users/infos").then(res => {
+        if (res.data.errorcode === 0) { // 成功
+          userStore.updateInfos(res.data.infos);
+          next();
+        }
+      }) // 如果返回失败 去响应拦截器做统一拦截处理
     } else {
       next('/login');
     }
