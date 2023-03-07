@@ -9,7 +9,7 @@
       <span class="header-title">在线考勤系统</span>
     </div>
     <div class="desc">
-      零基础从入门到进阶，系统掌握前端三大热门技术(Vue、React、TypeScript)
+      Study Vue、+ TypeScript
     </div>
     <el-form
       ref="ruleFormRef"
@@ -112,7 +112,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
       // 校验格式成功，登录
       const res = await userstore.login(ruleForm);
       if (res.data.errcode === 0) {
-        // success
         userstore.updateToken(res.data.token);
         ElMessage.success("登陆成功");
         router.push({path:'/'});

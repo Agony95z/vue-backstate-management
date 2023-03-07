@@ -1,5 +1,5 @@
 <template>
-  <!-- <el-container>
+  <el-container>
     <el-header>
       <home-header></home-header>
     </el-header>
@@ -9,11 +9,12 @@
       </el-aside>
       <el-main>
         <home-breadcrumb></home-breadcrumb>
-        <home-main></home-main>
+        <home-main>
+          <!-- <router-view></router-view> -->
+        </home-main>
       </el-main>
     </el-container>
-  </el-container> -->
-  <div>123213213</div>
+  </el-container>
 </template>
 
 <script setup lang="ts">

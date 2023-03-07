@@ -15,9 +15,6 @@ export const useUsersStore = defineStore("users", {
     return {
       token: '',
       infos: {}
-      // count: 100,
-      // foo: "bar",
-      // arr: [1, 2, 3] as any,
     };
   },
   // 模块部分数据持久化
@@ -47,8 +44,10 @@ export const useUsersStore = defineStore("users", {
       // this.$patch({})
       // this.$patch(state => ())
     },
-    updateToken(token: string) {
+    async updateToken(token: string) {
       this.token = token;
+      const res = await this.getInfos();
+      this.updateInfos(res.data.infos);
     },
     clearToken() {
       this.token = '';

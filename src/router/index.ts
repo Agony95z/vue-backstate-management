@@ -7,6 +7,7 @@ const Sign = () => import('@/views/Sign/Sign.vue');
 const Exception = () => import('@/views/Exception/Exception.vue');
 const Apply = () => import('@/views/Apply/Apply.vue');
 const Check = () => import('@/views/Check/Check.vue');
+const NotFound = () => import('@/views/403.vue');
 let userStore: any = null;
 declare module 'vue-router' {
   interface RouteMeta {
@@ -22,6 +23,23 @@ const router = createRouter({
     {
       path: '/',
       redirect: '/home',
+      meta: {
+        menu: true,
+        title: '考勤管理',
+        icon: 'document-copy',
+        auth: true
+      },
+    },
+    {
+      path: '/403',
+      name: '403',
+      meta: {
+        menu: false,
+        title: '403',
+        icon: 'document-copy',
+        auth: false 
+      },
+      component: NotFound,
     },
     {
       path: '/home',
@@ -31,7 +49,7 @@ const router = createRouter({
         menu: true,
         title: '考勤管理',
         icon: 'document-copy',
-        auth: true // 访问是否需要权限
+        auth: true
       },
       children: [
         {
@@ -83,7 +101,13 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      meta: {
+        menu: true,
+        title: '考勤管理',
+        icon: 'document-copy',
+        auth: false
+      },
     }
   ]
 })
@@ -92,29 +116,14 @@ router.beforeEach((to, from, next) => {
     userStore = useUsersStore();
   }
   const token = userStore.token;
-  const infos = userStore.infos; // 判断用户信息
-  // 需要登录权限
-  // 有token 获取infos
-  if (to.meta.auth && Object.keys(infos).length === 0) {
-    // 有token 获取infos
+  if (to?.meta?.auth) {
     if (token) {
-      http.get("/users/infos").then(res => {
-        if (res.data.errorcode === 0) { // 成功
-          userStore.updateInfos(res.data.infos);
-          next();
-        }
-      }) // 如果返回失败 去响应拦截器做统一拦截处理
+      next()
     } else {
-      next('/login');
+      next('/login')
     }
   } else {
-    // 有token且数据正确
-    if (token && to.path === '/login') {
-      // 重定向到首页
-      next('/');
-    } else {
-      next()
-    }
+    next()
   }
 })
 export default router
