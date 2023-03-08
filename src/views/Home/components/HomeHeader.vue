@@ -40,6 +40,7 @@ const head = computed(() => userStore.infos.head);
 const name = computed(() => userStore.infos.name);
 const handleLogout = () => {
   userStore.clearToken();
+  userStore.clearInfos();
   setTimeout(() => {
     window.location.replace("/login");
   }, 500);

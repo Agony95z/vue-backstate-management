@@ -10,7 +10,6 @@
       <el-main>
         <home-breadcrumb></home-breadcrumb>
         <home-main>
-          <!-- <router-view></router-view> -->
         </home-main>
       </el-main>
     </el-container>
@@ -30,6 +29,9 @@ import HomeMain from './components/HomeMain.vue';
 }
 .el-aside{
   box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
+}
+.el-container {
+  display: flex;
 }
 .el-main{
   background: #f0f2f5;

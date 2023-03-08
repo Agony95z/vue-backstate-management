@@ -19,9 +19,9 @@ export const useUsersStore = defineStore("users", {
   },
   // 模块部分数据持久化
   persist: {
-    key: 'token', // 修改key名称
+    // key: 'token', // 修改key名称
     storage: localStorage, //修改为 sessionStorage，默认为 localStorage
-    paths: ['token'],
+    paths: ['token', 'infos'],
   },
   getters: {
     // 函数接受一个可选参数 state 状态对象
@@ -51,6 +51,9 @@ export const useUsersStore = defineStore("users", {
     },
     clearToken() {
       this.token = '';
+    },
+    clearInfos() {
+      this.infos = {};
     },
     updateInfos(infos: any) {
       this.infos = infos;

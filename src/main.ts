@@ -7,7 +7,7 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 //引入Elmessage和Elloading的css样式文件
 import 'element-plus/theme-chalk/el-loading.css';
 import 'element-plus/theme-chalk/el-message.css';
-import "./assets/main.css";
+// import "./assets/main.css";
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
