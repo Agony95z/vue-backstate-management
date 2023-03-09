@@ -1,12 +1,20 @@
 import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import http from "@/utils/http";
 
-export const useCounterStore = defineStore('news', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
-
-  return { count, doubleCount, increment }
+export const useNewsStore = defineStore('news', {
+  state: () => ({
+    counter: 0,
+  }),
+  actions: {
+    increment() {
+      this.counter++
+    },
+    getRemind(params: any) {
+      return http.get('/news/remind', params)
+    },
+    putRemind(params: any) {
+      return http.put('/news/remind', params)
+    }
+  },
 })

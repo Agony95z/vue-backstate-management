@@ -24,26 +24,9 @@ export const useUsersStore = defineStore("users", {
     paths: ['token', 'infos'],
   },
   getters: {
-    // 函数接受一个可选参数 state 状态对象
-    // count10(state) {
-    //   return state.count + 10
-    // }
-
-    // 在getters中使用this 则需要手动指定返回值类型 否则推导不出来
-    // count10(): number {
-    //   // return this.count + 10;
-    // },
   },
   actions: {
     // 不能箭头函数
-    changeState() {
-      // this.count++;
-      // this.foo = "hello";
-      // this.arr.push(5);
-      // console.log(this.arr, "mmmmm");
-      // this.$patch({})
-      // this.$patch(state => ())
-    },
     async updateToken(token: string) {
       this.token = token;
       const res = await this.getInfos();
@@ -68,6 +51,3 @@ export const useUsersStore = defineStore("users", {
     },
   },
 });
-// 2.使用容器中的state
-// 3.修改state
-// 4.容器中action的使用
