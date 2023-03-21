@@ -95,6 +95,26 @@ const router = createRouter({
             icon: "warning",
             auth: true,
           },
+          async beforeEnter(to, from, next) {
+            if (userStore === null) {
+              userStore = useUsersStore();
+            }
+            if (signStore === null) {
+              signStore = useSignsStore();
+            }
+            const userInfos = userStore.infos;
+            const signInfos = signStore.infos;
+            if (_.isEmpty(signInfos)) {
+              // 获取当前用户的考勤数据
+              const res = await signStore.getTime({ userid: userInfos._id });
+              if (res.data.errcode === 0) {
+                signStore.updateInfos(res.data.infos);
+                next();
+              }
+            } else {
+              next();
+            }
+          },
         },
         {
           path: "apply",

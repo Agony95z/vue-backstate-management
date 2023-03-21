@@ -24,6 +24,9 @@ export const useSignsStore = defineStore('signs', {
     },
     getTime(payload: any) {
       return http.get('/signs/time', payload)
+    },
+    putTime(payload: any){
+      return http.put('/signs/time', payload);
     }
 
   }
