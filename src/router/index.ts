@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useUsersStore } from "@/stores/users";
 import { useSignsStore } from "@/stores/signs";
+import { useChecksStore } from "@/stores/checks";
 import * as _ from "lodash";
 const Login = () => import("@/views/Login/Login.vue");
 const Home = () => import("@/views/Home/Home.vue");
@@ -11,6 +12,7 @@ const Check = () => import("@/views/Check/Check.vue");
 const NotFound = () => import("@/views/403.vue");
 let userStore: any = null;
 let signStore: any = null;
+let checkStore: any = null;
 declare module "vue-router" {
   interface RouteMeta {
     menu?: boolean;
@@ -125,6 +127,26 @@ const router = createRouter({
             title: "添加考勤审批",
             icon: "document-add",
             auth: true,
+          },
+          async beforeEnter(to, from, next) {
+            if (userStore === null) {
+              userStore = useUsersStore();
+            }
+            if (checkStore === null) {
+              checkStore = useChecksStore();
+            }
+            const userInfos = userStore.infos;
+            const checksApplyList = checkStore.applyList;
+            if (_.isEmpty(checksApplyList)) {
+              // 获取当前用户的考勤数据
+              const res = await checkStore.getApply({ applicantid: userInfos._id });
+              if (res.data.errcode === 0) {
+                checkStore.updateApplyList(res.data.rets);
+                next();
+              }
+            } else {
+              next();
+            }
           },
         },
         {

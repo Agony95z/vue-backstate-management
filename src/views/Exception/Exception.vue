@@ -55,24 +55,23 @@ import { useRoute, useRouter } from "vue-router";
 import { useSignsStore } from "@/stores/signs";
 import { useChecksStore } from "@/stores/checks";
 import { toZero } from "@/utils/common";
-
 const route = useRoute();
 const router = useRouter();
 const signsStore = useSignsStore();
 const checksStore = useChecksStore();
 const signsInfos = computed(() => signsStore.infos);
-const checkInfos = computed(() => checksStore.checks);
+const applyList = computed(() => checksStore.applyList);
 const date = new Date();
 const year = date.getFullYear();
 const month = ref(Number(route.query.month) || date.getMonth() + 1);
 
-// const applyListMonth = computed(() => {
-//   (checkInfos as any).applyList.filter((v: any) => {
-//     const startTime = (v.time as string[])[0].split(" ")[0].split("-");
-//     const endTime = (v.time as string[])[1].split(" ")[0].split("-");
-//     return startTime[1] <= toZero(month.value) && endTime[1] >= toZero(month.value);
-//   });
-// });
+const applyListMonth = computed(() => {
+  (applyList as any).filter((v: any) => {
+    const startTime = (v.time as string[])[0].split(" ")[0].split("-");
+    const endTime = (v.time as string[])[1].split(" ")[0].split("-");
+    return startTime[1] <= toZero(month.value) && endTime[1] >= toZero(month.value);
+  });
+});
 
 const ret = (signsInfos.value as any).detail[toZero(month.value)] as {
   [index: string]: unknown;
